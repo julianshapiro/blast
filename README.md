@@ -1,7 +1,7 @@
 blast
 =====
 
-Get ready for some insane shit.
+Get ready for some RIDICULOUS sh!#.
 
 Blast.js combined with Velocity.js will provide unprecedented UI animation control.
 
