@@ -6,7 +6,7 @@ http://julian.com/research/blast/
 **Browser Support**  
 Everywhere. Back to IE6.
 
-**Credits**
+**Credits**  
 Development made possible thanks to Stripe's Open Source Grant: https://stripe.com/blog/open-source-retreat-grantees.
 
 ====
