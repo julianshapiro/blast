@@ -4,7 +4,7 @@
 
 /*!
 * Blast.js: Blast text apart to make it manipulable.
-* @version 0.1.0
+* @version 0.1.1
 * @docs julian.com/research/blast
 * @license Copyright 2014 Julian Shapiro. MIT License: http://en.wikipedia.org/wiki/MIT_License
 */  
@@ -79,7 +79,7 @@
         return text;
     }
 
-    /* decodePunctuation() is used to decode 1) the output of escapePeriods() and 2) punctuation that has been manually escaped by users. */
+    /* decodePunctuation() is used to decode the output of escapePeriods() and punctuation that has been manually escaped by users. */
     function decodePunctuation (text) {
         return text.replace(/{{(\d{1,3})}}/g, function(fullMatch, subMatch) {
             return String.fromCharCode(subMatch);
@@ -131,7 +131,6 @@
        DOM Traversal
     ******************/ 
 
-    /* Note: The basic DOM traversal technique is copyright Johann Burkard <http://johannburkard.de>. Licensed under the MIT License: http://en.wikipedia.org/wiki/MIT_License */
     function traverseDOM (node, opts) {
         var matchPosition = -1,
             skipNodeBit = 0;
@@ -195,11 +194,11 @@
             }
         /* Traverse the DOM tree until we find text nodes. Skip script and style elements. Skip select and textarea elements (which contain text nodes that cannot/should not be wrapped). 
            Additionally, check for the existence of our plugin's class to ensure that we do not traverse pre-Blasted elements. */
+        /* Note: The basic DOM traversal technique is copyright Johann Burkard <http://johannburkard.de>. Licensed under the MIT License: http://en.wikipedia.org/wiki/MIT_License */
         } else if (node.nodeType === 1 && node.hasChildNodes() && !Reg.skippedElements.test(node.tagName) && !Reg.hasPluginClass.test(node.className)) {  
-            Element.nodeBeginning = true;  
-            
             /* Note: We don't cache childNodes' length since it's a live nodeList (which changes dynamically with the use of splitText() above). */
             for (var i = 0; i < node.childNodes.length; i++) {
+                Element.nodeBeginning = true;  
                 i += traverseDOM(node.childNodes[i], opts);
             }
         }
