@@ -3,6 +3,9 @@
 **Docs**  
 http://julian.com/research/blast/
 
+**Coming Soon**  
+Zepto support.
+
 **Browser Support**  
 Everywhere. Back to IE6.
 
