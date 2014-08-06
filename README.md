@@ -7,7 +7,7 @@ http://julian.com/research/blast/
 Everywhere. Back to IE6.
 
 **Credits**  
-Development sponsored by Stripe's Open Source Grant: https://stripe.com/blog/open-source-retreat-grantees.
+Development sponsored by Stripe: https://stripe.com/blog/open-source-retreat-grantees.
 
 ====
 
