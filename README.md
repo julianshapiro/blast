@@ -7,7 +7,7 @@ http://julian.com/research/blast/
 Both jQuery and Zepto are fully supported.
 
 **Browsers**  
-Everywhere. Back to IE6. 
+All browsers. Back to IE6. 
 
 **Credits**  
 Development sponsored by Stripe: https://stripe.com/blog/open-source-retreat-grantees.
