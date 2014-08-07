@@ -4,7 +4,7 @@
 
 /*!
 * Blast.js: Blast text apart to make it manipulable.
-* @version 1.0.0
+* @version 1.1.0
 * @dependency Works with both jQuery and Zepto.
 * @docs julian.com/research/blast
 * @license Copyright 2014 Julian Shapiro. MIT License: http://en.wikipedia.org/wiki/MIT_License
@@ -129,6 +129,11 @@
                 wrapper.className += " " + valueClass;
             }
 
+            /* Hide the wrapper elements from screenreaders now that we've set the target's aria-label attribute. */
+            if (opts.aria) {
+                wrapper.setAttribute("aria-hidden", "true");
+            }
+
             wrapper.appendChild(node.cloneNode(false));
 
             return wrapper;
@@ -246,8 +251,6 @@
                 case "char":
                 case "character":
                     /* Matches every non-space character. */
-                    /* Note: The character delimiter is unique in that it makes it cumbersome for some screenreaders to read Blasted text — since each letter will be read one-at-a-time.
-                       Thus, when using the character delimiter, it is recommended that your use of Blast is temporary, e.g. to animate letters into place before thereafter reversing Blast. */
                     /* Note: This is the slowest delimiter. However, its slowness is only noticeable when it's used on larger bodies of text (of over 500 characters) on <=IE8.
                        (Run Blast with opts.debug=true to monitor execution times.) */
                     delimiterRegex = /(\S)/;
@@ -302,7 +305,8 @@
         **********************/ 
 
         this.each(function() {
-            var $this = $(this);
+            var $this = $(this),
+                text = $this.text();
 
             /* When anything except false is passed in for the options object, Blast is initiated. */
             if (options !== false) {
@@ -326,14 +330,17 @@
 
                 /* Unless a consecutive opts.search is being performed, an element's existing Blast call is reversed before proceeding. */
                 if ($this.data(NAME) !== undefined && ($this.data(NAME) !== "search" || opts.search === false)) {
-                    /* De-Blast the previous call before continuing. */
                     reverse($this, opts);
 
-                    if (opts.debug) console.log(NAME + ": Removing element's existing Blast call.");
+                    if (opts.debug) console.log(NAME + ": Removed element's existing Blast call.");
                 }
 
                 /* Store the current delimiter type so that it can be compared against on subsequent calls (see above). */
-                $this.data(NAME, (opts.search !== false) ? "search" : opts.delimiter);
+                $this.data(NAME, opts.search !== false ? "search" : opts.delimiter);
+
+                if (opts.aria) {
+                    $this.attr("aria-label", text);
+                }
 
                 /****************
                    Preparation
@@ -341,7 +348,7 @@
 
                 /* Perform optional HTML tag stripping. */
                 if (opts.stripHTMLTags) {
-                    $this.html($this.text());
+                    $this.html(text);
                 }
 
                 /* If the browser throws an error for the provided element type (browers whitelist the letters and types of the elements they accept), fall back to using "span". */
@@ -372,12 +379,11 @@
 
             /* Output the full string of each wrapper element and color alternate the wrappers. This is in addition to the performance timing that has already been outputted. */
             if (opts.debug) {
-                $this.find(".blast")
-                    .each(function() { console.log(NAME + " [" + opts.delimiter + "] " + $(this)[0].outerHTML); })
-                    .filter(function(index, element) {
-                        this.style.backgroundColor = index % 2 ? "#f12185" : "#075d9a";
-                    });
-           }
+                $.each(Element.wrappers, function(index, element) {
+                    console.log(NAME + " [" + opts.delimiter + "] " + this.outerHTML);
+                    this.style.backgroundColor = index % 2 ? "#f12185" : "#075d9a";
+                });
+            }
         });
 
         /************
@@ -392,10 +398,10 @@
             $this
                 .removeClass(NAME + "-root")
                 .data(NAME, undefined)
+                .removeAttr("aria-label")
                 .find("." + NAME)
                     .each(function () {
                         var $this = $(this);
-
                         /* Do not reverse Blast on descendant root elements. (Before you can reverse Blast on an element, you must reverse Blast on any parent elements that have been Blasted.) */
                         if (!$this.closest("." + NAME + "-root").length) {
                             var thisParentNode = this.parentNode;
@@ -450,6 +456,7 @@
         generateIndexID: false,
         generateValueClass: false,
         stripHTMLTags: false,
+        aria: true,
         debug: false
     };
 })(window.jQuery || window.Zepto, window, document);
