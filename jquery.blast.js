@@ -4,7 +4,7 @@
 
 /*!
 * Blast.js: Blast text apart to make it manipulable.
-* @version 0.2.0
+* @version 1.0.0
 * @dependency Works with both jQuery and Zepto.
 * @docs julian.com/research/blast
 * @license Copyright 2014 Julian Shapiro. MIT License: http://en.wikipedia.org/wiki/MIT_License
@@ -113,7 +113,7 @@
             }
 
             /* Assign the element a class equal to its escaped inner text. Only applicable to the character and word delimiters (since they do not contain spaces). */
-            if (opts.generateValueClass === true && (opts.delimiter === "character" || opts.delimiter === "word")) {
+            if (opts.generateValueClass === true && !opts.search && (opts.delimiter === "character" || opts.delimiter === "word")) {
                 var valueClass,
                     text = node.data;
 
@@ -144,7 +144,7 @@
                 if (Element.nodeBeginning) {
                     /* For the sentence delimiter, we first escape likely false-positive sentence-final punctuation. For all other delimiters,
                        we must decode the user's manually-escaped punctuation so that the RegEx can match correctly (without being thrown off by characters in {{ASCII}}). */
-                    node.data = (opts.delimiter === "sentence") ? encodePunctuation(node.data) : decodePunctuation(node.data);
+                    node.data = (!opts.search && opts.delimiter === "sentence") ? encodePunctuation(node.data) : decodePunctuation(node.data);
 
                     Element.nodeBeginning = false;
                 }
@@ -180,7 +180,7 @@
                     /* Over-increment the loop counter (see below) so that we skip the extra node (middleBit) that we've just created (and already processed). */
                     skipNodeBit = 1;
 
-                    if (opts.delimiter === "sentence") { 
+                    if (!opts.search && opts.delimiter === "sentence") { 
                         /* Now that we've forcefully escaped all likely false-positive sentence-final punctuation, we must decode the punctuation back from ASCII. */
                         middleBit.data = decodePunctuation(middleBit.data);
                     }
@@ -225,9 +225,9 @@
         ***********************/
 
         /* Ensure that the opts.delimiter search variable is a non-empty string. */
-        if (opts.search === true && $.type(opts.delimiter) === "string" && $.trim(opts.delimiter).length) {
+        if (opts.search.length && ($.type(opts.search) === "string" || $.type(opts.search) === "number")) {
             /* Since the search is performed as a Regex (see below), we escape the string's Regex meta-characters. */
-            opts.delimiter = opts.delimiter.replace(/[-[\]{,}(.)*+?|^$\\\/]/g, "\\$&");
+            opts.delimiter = opts.search.toString().replace(/[-[\]{,}(.)*+?|^$\\\/]/g, "\\$&");
 
             /* Note: This matches the apostrophe+s of the phrase's possessive form: {PHRASE's}. */
             /* Note: This will not match text that is part of a compound word (two words adjoined with a dash), e.g. "front" won't match inside "front-end". */
@@ -325,7 +325,7 @@
                 *****************/  
 
                 /* Unless a consecutive opts.search is being performed, an element's existing Blast call is reversed before proceeding. */
-                if ($this.data(NAME) !== undefined && ($this.data(NAME) !== "search" || !opts.search)) {
+                if ($this.data(NAME) !== undefined && ($this.data(NAME) !== "search" || opts.search === false)) {
                     /* De-Blast the previous call before continuing. */
                     reverse($this, opts);
 
@@ -333,7 +333,7 @@
                 }
 
                 /* Store the current delimiter type so that it can be compared against on subsequent calls (see above). */
-                $this.data(NAME, opts.search ? "search" : opts.delimiter);
+                $this.data(NAME, (opts.search !== false) ? "search" : opts.delimiter);
 
                 /****************
                    Preparation
