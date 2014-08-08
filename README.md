@@ -7,10 +7,32 @@ http://julian.com/research/blast
 Both jQuery and Zepto are fully supported.
 
 **Browsers**  
-All browsers. Back to IE6. 
+All browsers. Back to IE6.
 
 **Credits**  
 Development sponsored by Stripe: https://stripe.com/blog/open-source-retreat-grantees.
+
+**Package Managers**
+
+You may also install Blast through the package manager of your choice.
+
+With npm:
+
+```sh
+npm install --save-dev julianshapiro/blast
+```
+
+With Component:
+
+```sh
+component install julianshapiro/blast
+```
+
+With Bower:
+
+```sh
+bower install blast
+```
 
 ====
 
