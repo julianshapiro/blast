@@ -1,13 +1,17 @@
 {
-  "name": "blast",
-  "version": "1.1.0",
+  "name": "blast-text",
+  "version": "1.1.1",
   "description": "Blast text apart to make it manipulable.",
   "homepage": "http://julian.com/research/blast",
   "license": "MIT",
-  "author": "Julian Shapiro (http://julian.com)",
-  "main": "jquery.velocity.js",
+  "authors": [
+    {
+      "name": "Julian Shapiro",
+      "url": "http://julian.com/"
+    }
+  ],
+  "main": "jquery.blast.js",
   "repository": "julianshapiro/blast",
-  "private": true,
   "keywords": [
     "text",
     "parse",
@@ -15,6 +19,7 @@
     "search",
     "animation",
     "jquery",
+    "zepto",
     "character",
     "word",
     "sentence"
@@ -24,6 +29,6 @@
     "jquery.blast.min.js"
   ],
   "dependencies": {
-    "jquery": ">= 1.4.3"
+    "jquery": ">= 1.3.0"
   }
 }

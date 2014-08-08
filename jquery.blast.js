@@ -4,7 +4,7 @@
 
 /*!
 * Blast.js: Blast text apart to make it manipulable.
-* @version 1.1.0
+* @version 1.1.1
 * @dependency Works with both jQuery and Zepto.
 * @docs julian.com/research/blast
 * @license Copyright 2014 Julian Shapiro. MIT License: http://en.wikipedia.org/wiki/MIT_License
@@ -230,7 +230,7 @@
         ***********************/
 
         /* Ensure that the opts.delimiter search variable is a non-empty string. */
-        if (opts.search.length && ($.type(opts.search) === "string" || $.type(opts.search) === "number")) {
+        if (opts.search.length && (typeof opts.search === "string" || /^\d/.test(parseFloat(opts.search)))) {
             /* Since the search is performed as a Regex (see below), we escape the string's Regex meta-characters. */
             opts.delimiter = opts.search.toString().replace(/[-[\]{,}(.)*+?|^$\\\/]/g, "\\$&");
 
@@ -242,7 +242,7 @@
             delimiterRegex = new RegExp("(?:^|[^-" + characterRanges.latinLetters + "])(" + opts.delimiter + "('s)?)(?![-" + characterRanges.latinLetters + "])", "i");
         } else {
             /* Normalize the string's case for the delimiter switch check below. */
-            if ($.type(opts.delimiter) === "string") {
+            if (typeof opts.delimiter === "string") {
                 opts.delimiter = opts.delimiter.toLowerCase();
             }                        
 
@@ -397,7 +397,6 @@
 
             $this
                 .removeClass(NAME + "-root")
-                .data(NAME, undefined)
                 .removeAttr("aria-label")
                 .find("." + NAME)
                     .each(function () {
@@ -418,6 +417,13 @@
                             skippedDescendantRoot = true;
                         }
                     });
+
+            /* Zepto core doesn't include cache-based $.data(), so we mimic data-attr removal by setting it to undefined. */
+            if (window.Zepto) {
+                $this.data(NAME, undefined);
+            } else {
+                $this.removeData(NAME);
+            }
 
             if (opts.debug) {
                 console.log(NAME + ": Reversed Blast" + ($this.attr("id") ? " on #" + $this.attr("id") + "." : ".") + (skippedDescendantRoot ? " Skipped reversal on the children of one or more descendant root elements." : ""));
