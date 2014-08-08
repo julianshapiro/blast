@@ -1,0 +1,28 @@
+{
+  "name": "blast",
+  "repository": "julianshapiro/blast",
+  "version": "1.1.0",
+  "description": "Blast text apart to make it manipulable.",
+  "keywords": [
+    "text",
+    "parse",
+    "typography",
+    "search",
+    "animation",
+    "jquery",
+    "character",
+    "word",
+    "sentence",
+    "velocity",
+    "velocity.js",
+    "velocityjs",
+  ],
+  "license" : "MIT",
+  "main": "jquery.blast.js",
+  "scripts": [
+    "jquery.blast.js"
+  ],
+  "dependencies": {
+    "jquery/jquery": "*"
+  }
+}
