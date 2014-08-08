@@ -17,10 +17,7 @@
     "jquery",
     "character",
     "word",
-    "sentence",
-    "velocity",
-    "velocity.js",
-    "velocityjs"
+    "sentence"
   ],
   "files": [
     "jquery.blast.js",

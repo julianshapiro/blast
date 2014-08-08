@@ -12,10 +12,7 @@
     "jquery",
     "character",
     "word",
-    "sentence",
-    "velocity",
-    "velocity.js",
-    "velocityjs",
+    "sentence"
   ],
   "license" : "MIT",
   "main": "jquery.blast.js",
