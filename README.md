@@ -19,7 +19,7 @@ You may also install Blast through the package manager of your choice.
 With npm:
 
 ```sh
-npm install --save-dev julianshapiro/blast
+npm install --save julianshapiro/blast
 ```
 
 With Component:
