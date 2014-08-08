@@ -1,0 +1,37 @@
+{
+  "name": "blast-text",
+  "version": "1.1.1",
+  "homepage": "http://julian.com/research/blast",
+  "authors": [{
+    "name" : "Julian Shapiro",
+    "homepage" : "http://julian.com/"
+  }],
+  "description": "Blast text apart to make it manipulable.",
+  "main": "./jquery.blast.js",
+  "keywords": [
+    "text",
+    "parse",
+    "typography",
+    "search",
+    "animation",
+    "jquery",
+    "zepto",
+    "character",
+    "word",
+    "sentence"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "*.json",
+    "LICENSE",
+    "*.md"
+  ],
+  "dependencies": {
+    "jquery": "jquery/jquery"
+  },
+  "repository" :
+  {
+    "type" : "git",
+    "url" : "http://github.com/julianshapiro/velocity.git"
+  }
+}
