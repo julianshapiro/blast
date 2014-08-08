@@ -1,7 +1,7 @@
 ##Blast (1.1.0)
 
 **Docs**  
-http://julian.com/research/blast/
+http://julian.com/research/blast
 
 **Library Support**  
 Both jQuery and Zepto are fully supported.
