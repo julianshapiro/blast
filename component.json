@@ -21,6 +21,6 @@
     "jquery.blast.js"
   ],
   "dependencies": {
-    "jquery/jquery": "*"
+    "components/jquery": "*"
   }
 }
