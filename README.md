@@ -1,8 +1,7 @@
 ##Blast (1.1.1)
 
 **Docs**  
-http://julian.com/research/blast
-
+[julian.com/research/blast](http://julian.com/research/blast)
 
 **Quickstart**
 
