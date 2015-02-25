@@ -1,4 +1,4 @@
-##Blast (1.1.1)
+##Blast (2.0.0)
 
 **Docs**  
 [julian.com/research/blast](http://julian.com/research/blast)
