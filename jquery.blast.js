@@ -81,7 +81,7 @@
 
         /* Used to decode both the output of encodePunctuation() and punctuation that has been manually escaped by users. */
         function decodePunctuation (text) {
-            return text.replace(/{{(\d{1,3})}}/g, function(fullMatch, subMatch) {
+            return text.replace(/\{\{(\d{1,3})\}\}/g, function(fullMatch, subMatch) {
                 return String.fromCharCode(subMatch);
             }); 
         }
