@@ -1,7 +1,7 @@
 ##Blast (2.0.0)
 
 **Docs**  
-[julian.com/research/blast](http://julian.com/research/blast)
+[velocityjs.org/blast](http://velocityjs.org/blast)
 
 **Quickstart**
 
