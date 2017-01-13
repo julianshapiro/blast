@@ -114,6 +114,7 @@
             /* Assign the element a class equal to its escaped inner text. Only applicable to the character and word delimiters (since they do not contain spaces). */
             if (opts.generateValueClass === true && !opts.search && (opts.delimiter === "character" || opts.delimiter === "word")) {
                 var valueClass,
+                    charcodeClass,
                     text = node.data;
 
                 /* For the word delimiter, remove adjoined punctuation, which is unlikely to be desired as part of the match -- unless the text
@@ -126,6 +127,12 @@
                 valueClass = NAME + "-" + opts.delimiter.toLowerCase() + "-" + text.toLowerCase();
 
                 wrapper.className += " " + valueClass;
+
+                /* For the character delimiter, also add a charCode suffix class to allow fine-grained CSS rules */
+                if (opts.delimiter === "character") {
+                    charcodeClass = NAME + "-" + opts.delimiter.toLowerCase() + "-" + text.charCodeAt(0);
+                    wrapper.className += " " + charcodeClass;
+                }
             }
 
             /* Hide the wrapper elements from screenreaders now that we've set the target's aria-label attribute. */
