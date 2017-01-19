@@ -187,13 +187,21 @@
                         middleBit.data = decodePunctuation(middleBit.data);
                     }
 
-                    /* Create the wrapped node. */
-                    var wrappedNode = wrapNode(middleBit, opts, Element.blastedIndex);
-                    /* Then replace the middleBit text node with its wrapped version. */  
-                    middleBit.parentNode.replaceChild(wrappedNode, middleBit);
+                    /* Wrap the elements only if we want wrapping (defaults to true) */
+                    if (opts.wrap) {
 
-                    /* Push the wrapper onto the Element.wrappers array (for later use with stack manipulation). */
-                    Element.wrappers.push(wrappedNode);
+                        /* Create the wrapped node. */
+                        var wrappedNode = wrapNode(middleBit, opts, Element.blastedIndex);
+                        /* Then replace the middleBit text node with its wrapped version. */  
+                        middleBit.parentNode.replaceChild(wrappedNode, middleBit);
+
+                        /* Push the wrapper onto the Element.wrappers array (for later use with stack manipulation). */
+                        Element.wrappers.push(wrappedNode);
+                    }
+                    /* Otherwise, just push the text node */
+                    else {
+                        Element.wrappers.push(middleBit);
+                    }
 
                     Element.blastedIndex++;
 
@@ -467,7 +475,8 @@
         generateValueClass: false,
         stripHTMLTags: false,
         aria: true,
-        debug: false
+        debug: false,
+        wrap: true
     };
 })(window.jQuery || window.Zepto, window, document);
 
